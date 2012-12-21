@@ -1,0 +1,43 @@
+{% extends 'task_generic.html' %}
+{% block content %}
+<style>
+.input-task{ width:400px;}	
+</style>
+{% if user.is_authenticated %}
+<span>Welcome {{user.email}} </span>
+<br />
+<br />
+<a href="/home/logout"> logout {{user.email}}</a>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<form action="/tasks/xhr_save_time" id="frm_savetask" method="POST">
+		<label>Client:</label>
+		<input class="input-task" type="text" name="client" />
+		<br />
+		<br />
+		<label>Register your task here:</label>
+		<input class="input-task" id="task_name" type="text" name="task_name" />
+		<input type="submit" name="submit_task" value="start a job" />
+		<input  type="hidden" id="user_id" name="user_id" value="{{user.id}}" />
+</form>
+<section class="clock">
+		<span id="hours">00</span>
+		<span class="time-separator">:</span>
+		<span id="minutes">00</span>
+		<span class="time-separator">:</span>
+		<span id="seconds">00</span>
+</section>
+
+<section class="clock"></section>
+
+<button class="stop-counter">stop counter</button>
+<button class="start-counter">start counter</button>
+
+{% endif %}
+{% endblock %}
