@@ -1,4 +1,4 @@
-from django.http  import HttpResponse,HttpResponseRedirect
+from django.http  import HttpResponse, HttpResponseRedirect 
 from django.contrib.auth import authenticate, login as auth_login , logout as auth_logout
 from django.shortcuts import render_to_response
 from django.core.context_processors import csrf
@@ -25,21 +25,8 @@ def register(request):
     		user.save()
     		return HttpResponse('Congratulations! your user as been created');
 
-def login(request):
-    if request.method == 'POST' :
-        form = UserForm(request.POST)
-        email = request.POST['email']
-        password = request.POST['pwd']
-        user = authenticate(email = email, password = password)
-        if user is not None:
-            if user.is_active:
-                auth_login(request,user)
-
-                return HttpResponseRedirect('/tasks')
-            else:
-                return HttpResponse('the user is not active')
-        else:
-            return HttpResponse('user not found')
+def access_channel(request):
+	return HttpResponseRedirect('/tasks')
 
 def logout(request):
     auth_logout(request)

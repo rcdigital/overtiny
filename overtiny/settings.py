@@ -1,7 +1,29 @@
 # Django settings for overtiny project.
 import local_settings
 
+DEBUG = local_settings.DEBUG
+
 TEMPLATE_DEBUG = local_settings.DEBUG
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = local_settings.SOCIAL_AUTH_LOGIN_REDIRECT_URL
+SOCIAL_AUTH_COMPLETE_URL_NAME = local_settings.SOCIAL_AUTH_COMPLETE_URL_NAME
+SOCIAL_AUTH_ASSOCIATE_URL_NAME = local_settings.SOCIAL_AUTH_ASSOCIATE_URL_NAME
+SOCIAL_AUTH_DEFAULT_USERNAME = local_settings.SOCIAL_AUTH_DEFAULT_USERNAME
+SOCIAL_AUTH_EXTRA_DATA = local_settings.SOCIAL_AUTH_EXTRA_DATA
+SOCIAL_AUTH_CHANGE_SIGNAL_ONLY = local_settings.SOCIAL_AUTH_CHANGE_SIGNAL_ONLY
+SOCIAL_AUTH_RAISE_EXCEPTIONS = DEBUG
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_auth.backends.pipeline.social.social_auth_user',
+    'social_auth.backends.pipeline.associate.associate_by_email',
+    'social_auth.backends.pipeline.user.get_username',
+    'social_auth.backends.pipeline.user.create_user',
+    'social_auth.backends.pipeline.social.associate_user',
+    'social_auth.backends.pipeline.user.update_user_details',
+)
+
+SOCIAL_AUTH_PIPELINE_RESUME_ENTRY = 'social_auth.backends.pipeline.misc.save_status_to_session'
+SOCIAL_AUTH_PARTIAL_PIPELINE_KEY = 'partial_pipeline'
 
 ADMINS = (
     ('erick belfort', 'erick.belf@gmail.com'),
@@ -50,11 +72,11 @@ STATIC_ROOT = local_settings.PROJECT_ROOT +'static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = '/files/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    '/Users/erickbelfort/lab/overtiny/front-end/files/',
+    local_settings.PROJECT_ROOT +'../front-end/files/',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -80,7 +102,8 @@ TEMPLATE_LOADERS = (
 
 # Replace authenticate method to a customized method
 AUTHENTICATION_BACKENDS = (
-    'overtiny.backends.OvertinyAuthBackEnd',
+    'social_auth.backends.google.GoogleBackend',
+    'social_auth.backends.OpenIDBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -93,6 +116,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
 
 ROOT_URLCONF = 'overtiny.urls'
 
@@ -114,6 +138,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.template.defaultfilters',
+    'social_auth',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

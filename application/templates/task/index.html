@@ -3,7 +3,6 @@
 <style>
 .input-task{ width:400px;}	
 </style>
-{% if user.is_authenticated %}
 <span>Welcome {{user.email}} </span>
 <br />
 <br />
@@ -16,7 +15,7 @@
 <br />
 <br />
 
-<form action="/tasks/xhr_save_time" id="frm_savetask" method="POST">
+<form action="/tasks/xhr_save_time" id="frm_savetask" method="POST">{% csrf_token %}
 		<label>Client:</label>
 		<input class="input-task" type="text" name="client" />
 		<br />
@@ -26,6 +25,7 @@
 		<input type="submit" name="submit_task" value="start a job" />
 		<input  type="hidden" id="user_id" name="user_id" value="{{user.id}}" />
 </form>
+
 <section class="clock">
 		<span id="hours">00</span>
 		<span class="time-separator">:</span>
@@ -38,6 +38,4 @@
 
 <button class="stop-counter">stop counter</button>
 <button class="start-counter">start counter</button>
-
-{% endif %}
 {% endblock %}
