@@ -1,5 +1,5 @@
 from django.db import models
-from application.models.user import User
+from django.contrib.auth.models import User
 
 class Company(models.Model):
     user        = models.ForeignKey(User)

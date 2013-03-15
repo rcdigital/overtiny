@@ -17,13 +17,12 @@
 
 <form action="/tasks/xhr_save_time" id="frm_savetask" method="POST">{% csrf_token %}
 		<label>Client:</label>
-		<input class="input-task" type="text" name="client" />
+		<input class="input-task" id="client" type="text" name="client" />
 		<br />
 		<br />
 		<label>Register your task here:</label>
 		<input class="input-task" id="task_name" type="text" name="task_name" />
 		<input type="submit" name="submit_task" value="start a job" />
-		<input  type="hidden" id="user_id" name="user_id" value="{{user.id}}" />
 </form>
 
 <section class="clock">

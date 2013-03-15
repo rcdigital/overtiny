@@ -1,5 +1,5 @@
 from django.db import models
-from application.models.user import User
+from django.contrib.auth.models import User
 from application.models.company import Company
 
 class Task(models.Model):

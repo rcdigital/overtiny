@@ -1,4 +1,5 @@
 from django.http  import HttpResponse, HttpResponseRedirect 
+from django.template import RequestContext
 from django.contrib.auth import authenticate, login as auth_login , logout as auth_logout
 from django.shortcuts import render_to_response
 from django.core.context_processors import csrf
@@ -12,7 +13,7 @@ def index(request) :
     form = UserForm()
     c = {'form' : form}
     c.update(csrf(request))
-    return render_to_response( 'home/index.html',c )
+    return render_to_response('home/index.html',c,context_instance = RequestContext(request))
 
 def register(request):
     if request.method == 'POST' :

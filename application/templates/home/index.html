@@ -1,35 +1,17 @@
-<!DOCTYPE html>
-<html>
-	<head>
-			<title> Overtiny </title>
-	</head>
-	<body>
-			<h1>Cadastre-se</h1>
-			<form action="/home/register" method = "POST" enctype="multipart/form-data" >{% csrf_token %}
+{% extends 'task_generic.html' %}
+{% block content %}
+<section class="home">
+	<section class="presentation">
+		<p class="impact-text antialiased"><strong class="evidence">Over</strong>tiny is a minimal, easy and free overtime tracking tool for those who want to convert overtime job hours into relaxing and restful days.</p>
+	</section>
 
-					<label for="email"> username: </label>{{ form.username}}
-					<br />
-					<br />
-					<label for="email"> Email: </label>{{ form.email}}
-					<br />
-					<br />
-					<label for="password">password:</label>  {{ form.pwd}}
-					<br />
-					<br />
-					<input type="submit" value="cadastrar" />
-			</form>
+	<section class="howto">
+			<a href="#" class="eye-play-action">
+				<span class="svgsprites eye-play"></span>	
+				<span class="learn antialiased">LEARN HOW TO USE</span>
+			</a>
+	</section>
+</section>
 
-			<h1>Login</h1>
-			<form action="/home/login" method = "POST" enctype="multipart/form-data" >{% csrf_token %}
-
-					<label for="email"> Email: </label>{{ form.email}}
-					<br />
-					<br />
-					<label for="password">Senha :</label>  {{ form.pwd}}
-					<br />
-					<br />
-					<input type="submit" value="cadastrar" />
-			</form>
-			<a href="{% url socialauth_begin 'google' %}">Login with Google</a>
-	</body>
-</html>
+<a href="{% url socialauth_begin 'google' %}">Login with Google</a>
+{% endblock %}
